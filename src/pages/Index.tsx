@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -9,10 +9,10 @@ export default function Index() {
   const [selectedWhale, setSelectedWhale] = useState<number | null>(null);
   const [showGallery, setShowGallery] = useState(false);
   const [ratings, setRatings] = useState<{ [key: number]: number }>({});
-  const whalesRef = useRef<HTMLElement>(null);
 
   const scrollToWhales = () => {
-    whalesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const element = document.getElementById('whales-section');
+    element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const rateWhale = (index: number, rating: number) => {
@@ -293,7 +293,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section ref={whalesRef} className="py-20 px-6 bg-gradient-to-br from-primary/5 via-accent/5 to-ocean-light/20">
+      <section id="whales-section" className="py-20 px-6 bg-gradient-to-br from-primary/5 via-accent/5 to-ocean-light/20">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h3 className="text-5xl font-bold text-secondary mb-4">Познакомьтесь с китами</h3>
