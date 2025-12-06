@@ -14,6 +14,7 @@ export default function Index() {
       size: '24-30 м',
       weight: '150-200 т',
       status: 'Под угрозой',
+      statusColor: 'bg-red-500',
       gradient: 'from-blue-600 via-blue-500 to-cyan-400',
       icon: '🐋',
       habitat: 'Все океаны мира',
@@ -26,6 +27,7 @@ export default function Index() {
       size: '12-16 м',
       weight: '25-40 т',
       status: 'Уязвимый',
+      statusColor: 'bg-orange-500',
       gradient: 'from-indigo-600 via-purple-500 to-pink-400',
       icon: '🐳',
       habitat: 'Мировой океан',
@@ -38,8 +40,9 @@ export default function Index() {
       size: '6-9 м',
       weight: '4-10 т',
       status: 'Стабильный',
-      gradient: 'from-slate-800 via-slate-600 to-slate-400',
-      icon: '⚫',
+      statusColor: 'bg-green-500',
+      gradient: 'from-slate-900 via-slate-700 to-slate-500',
+      icon: '🐬',
       habitat: 'Все океаны',
       lifespan: '50-80 лет',
       description: 'Высокоинтеллектуальный хищник с собственными диалектами и культурой, передающейся через поколения.'
@@ -50,11 +53,64 @@ export default function Index() {
       size: '12-15 м',
       weight: '15-35 т',
       status: 'Восстановленный',
+      statusColor: 'bg-emerald-500',
       gradient: 'from-gray-600 via-gray-500 to-blue-300',
       icon: '🐋',
       habitat: 'Тихий океан',
       lifespan: '50-70 лет',
       description: 'Совершает самую длинную миграцию среди млекопитающих — до 20,000 км в год между Аляской и Мексикой.'
+    },
+    {
+      name: 'Финвал',
+      latin: 'Balaenoptera physalus',
+      size: '18-24 м',
+      weight: '40-70 т',
+      status: 'Под угрозой',
+      statusColor: 'bg-red-500',
+      gradient: 'from-teal-600 via-cyan-500 to-blue-400',
+      icon: '🐋',
+      habitat: 'Все океаны',
+      lifespan: '80-90 лет',
+      description: 'Второй по величине кит в мире, способен развивать скорость до 40 км/ч — самый быстрый из крупных китов.'
+    },
+    {
+      name: 'Кашалот',
+      latin: 'Physeter macrocephalus',
+      size: '11-20 м',
+      weight: '35-57 т',
+      status: 'Уязвимый',
+      statusColor: 'bg-orange-500',
+      gradient: 'from-slate-700 via-blue-800 to-blue-600',
+      icon: '🐳',
+      habitat: 'Глубокие океаны',
+      lifespan: '60-70 лет',
+      description: 'Обладает самым большим мозгом среди всех животных и может нырять на глубину до 3000 метров.'
+    },
+    {
+      name: 'Белуха',
+      latin: 'Delphinapterus leucas',
+      size: '4-6 м',
+      weight: '1.5-2 т',
+      status: 'Близок к угрозе',
+      statusColor: 'bg-yellow-500',
+      gradient: 'from-blue-200 via-white to-blue-100',
+      icon: '🐳',
+      habitat: 'Арктика',
+      lifespan: '35-50 лет',
+      description: 'Белоснежный «морской канареец», издающий множество звуков и обладающий невероятной мимикой.'
+    },
+    {
+      name: 'Нарвал',
+      latin: 'Monodon monoceros',
+      size: '4-5.5 м',
+      weight: '0.8-1.6 т',
+      status: 'Близок к угрозе',
+      statusColor: 'bg-yellow-500',
+      gradient: 'from-indigo-400 via-blue-300 to-cyan-200',
+      icon: '🦄',
+      habitat: 'Арктические воды',
+      lifespan: '40-50 лет',
+      description: 'Арктический «единорог океана» с уникальным спиральным бивнем длиной до 3 метров.'
     }
   ];
 
@@ -164,7 +220,7 @@ export default function Index() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {whaleSpecies.map((whale, index) => (
               <Card
                 key={index}
@@ -179,7 +235,7 @@ export default function Index() {
                     </span>
                   </div>
                   <div className="absolute top-4 right-4">
-                    <Badge variant="secondary" className="bg-white/90">
+                    <Badge className={`${whale.statusColor} text-white font-semibold shadow-lg border-0`}>
                       {whale.status}
                     </Badge>
                   </div>
