@@ -10,6 +10,7 @@ export default function Index() {
   const [showGallery, setShowGallery] = useState(false);
   const [ratings, setRatings] = useState<{ [key: number]: number }>({});
   const [showAll, setShowAll] = useState(false);
+  const [statusFilter, setStatusFilter] = useState<string>('Все');
 
   const scrollToWhales = () => {
     const element = document.getElementById('whales-section');
@@ -550,13 +551,63 @@ export default function Index() {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h3 className="text-5xl font-bold text-secondary mb-4">Познакомьтесь с китами</h3>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
               30 удивительных видов — от гигантских синих китов до проворных дельфинов!
             </p>
+            
+            <div className="flex flex-wrap gap-3 justify-center mt-8">
+              <Button 
+                variant={statusFilter === 'Все' ? 'default' : 'outline'} 
+                onClick={() => setStatusFilter('Все')}
+                size="lg"
+              >
+                <Icon name="List" className="mr-2" size={18} />
+                Все ({whaleSpecies.length})
+              </Button>
+              <Button 
+                variant={statusFilter === 'Под угрозой' ? 'default' : 'outline'} 
+                onClick={() => setStatusFilter('Под угрозой')}
+                size="lg"
+                className={statusFilter === 'Под угрозой' ? '' : 'hover:bg-red-50'}
+              >
+                <span className="mr-2">🚨</span>
+                Под угрозой ({whaleSpecies.filter(w => w.status.includes('Под угрозой')).length})
+              </Button>
+              <Button 
+                variant={statusFilter === 'Критически под угрозой' ? 'default' : 'outline'} 
+                onClick={() => setStatusFilter('Критически под угрозой')}
+                size="lg"
+                className={statusFilter === 'Критически под угрозой' ? '' : 'hover:bg-red-100'}
+              >
+                <span className="mr-2">⚠️</span>
+                Критические ({whaleSpecies.filter(w => w.status === 'Критически под угрозой').length})
+              </Button>
+              <Button 
+                variant={statusFilter === 'Уязвимый' ? 'default' : 'outline'} 
+                onClick={() => setStatusFilter('Уязвимый')}
+                size="lg"
+                className={statusFilter === 'Уязвимый' ? '' : 'hover:bg-orange-50'}
+              >
+                <span className="mr-2">⚡</span>
+                Уязвимые ({whaleSpecies.filter(w => w.status === 'Уязвимый').length})
+              </Button>
+              <Button 
+                variant={statusFilter === 'Стабильный' ? 'default' : 'outline'} 
+                onClick={() => setStatusFilter('Стабильный')}
+                size="lg"
+                className={statusFilter === 'Стабильный' ? '' : 'hover:bg-green-50'}
+              >
+                <span className="mr-2">✅</span>
+                Стабильные ({whaleSpecies.filter(w => w.status === 'Стабильный').length})
+              </Button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {(showAll ? whaleSpecies : whaleSpecies.slice(0, 12)).map((whale, index) => (
+            {(showAll 
+              ? (statusFilter === 'Все' ? whaleSpecies : whaleSpecies.filter(w => w.status.includes(statusFilter))) 
+              : (statusFilter === 'Все' ? whaleSpecies : whaleSpecies.filter(w => w.status.includes(statusFilter))).slice(0, 12)
+            ).map((whale, index) => (
               <Card
                 key={index}
                 className="group cursor-pointer overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]"
@@ -645,11 +696,11 @@ export default function Index() {
             ))}
           </div>
 
-          {!showAll && (
+{!showAll && (
             <div className="text-center mt-12">
               <Button size="lg" variant="outline" className="text-lg px-8 py-6" onClick={() => setShowAll(true)}>
                 <Icon name="ChevronDown" className="mr-2" size={20} />
-                Показать ещё {whaleSpecies.length - 12} видов
+                Показать ещё {(statusFilter === 'Все' ? whaleSpecies : whaleSpecies.filter(w => w.status.includes(statusFilter))).length - 12} видов
               </Button>
             </div>
           )}
