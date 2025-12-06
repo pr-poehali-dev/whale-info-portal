@@ -1,11 +1,23 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 
 export default function Index() {
   const [selectedWhale, setSelectedWhale] = useState<number | null>(null);
+  const [showGallery, setShowGallery] = useState(false);
+  const [ratings, setRatings] = useState<{ [key: number]: number }>({});
+  const whalesRef = useRef<HTMLElement>(null);
+
+  const scrollToWhales = () => {
+    whalesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const rateWhale = (index: number, rating: number) => {
+    setRatings(prev => ({ ...prev, [index]: rating }));
+  };
 
   const whaleSpecies = [
     {
@@ -19,6 +31,7 @@ export default function Index() {
       icon: '🐋',
       habitat: 'Все океаны мира',
       lifespan: '80-90 лет',
+      photo: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80',
       description: 'Самое крупное животное, когда-либо существовавшее на Земле. Его сердце размером с автомобиль, а язык весит как слон.'
     },
     {
@@ -32,6 +45,7 @@ export default function Index() {
       icon: '🐳',
       habitat: 'Мировой океан',
       lifespan: '45-50 лет',
+      photo: 'https://images.unsplash.com/photo-1489549132488-d00b7eee80f1?w=800&q=80',
       description: 'Известен своими сложными песнями длительностью до 30 минут и впечатляющими прыжками из воды.'
     },
     {
@@ -45,6 +59,7 @@ export default function Index() {
       icon: '🐬',
       habitat: 'Все океаны',
       lifespan: '50-80 лет',
+      photo: 'https://images.unsplash.com/photo-1568430462989-44163eb1752f?w=800&q=80',
       description: 'Высокоинтеллектуальный хищник с собственными диалектами и культурой, передающейся через поколения.'
     },
     {
@@ -58,6 +73,7 @@ export default function Index() {
       icon: '🐋',
       habitat: 'Тихий океан',
       lifespan: '50-70 лет',
+      photo: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
       description: 'Совершает самую длинную миграцию среди млекопитающих — до 20,000 км в год между Аляской и Мексикой.'
     },
     {
@@ -71,6 +87,7 @@ export default function Index() {
       icon: '🐋',
       habitat: 'Все океаны',
       lifespan: '80-90 лет',
+      photo: 'https://images.unsplash.com/photo-1530885988677-30d2a3aeade4?w=800&q=80',
       description: 'Второй по величине кит в мире, способен развивать скорость до 40 км/ч — самый быстрый из крупных китов.'
     },
     {
@@ -84,6 +101,7 @@ export default function Index() {
       icon: '🐳',
       habitat: 'Глубокие океаны',
       lifespan: '60-70 лет',
+      photo: 'https://images.unsplash.com/photo-1567213502996-a3c8e5cf0dd3?w=800&q=80',
       description: 'Обладает самым большим мозгом среди всех животных и может нырять на глубину до 3000 метров.'
     },
     {
@@ -97,6 +115,7 @@ export default function Index() {
       icon: '🐳',
       habitat: 'Арктика',
       lifespan: '35-50 лет',
+      photo: 'https://images.unsplash.com/photo-1559828260-0ba30c6aa25c?w=800&q=80',
       description: 'Белоснежный «морской канареец», издающий множество звуков и обладающий невероятной мимикой.'
     },
     {
@@ -110,7 +129,64 @@ export default function Index() {
       icon: '🦄',
       habitat: 'Арктические воды',
       lifespan: '40-50 лет',
+      photo: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=800&q=80',
       description: 'Арктический «единорог океана» с уникальным спиральным бивнем длиной до 3 метров.'
+    },
+    {
+      name: 'Малый полосатик',
+      latin: 'Balaenoptera acutorostrata',
+      size: '7-10 м',
+      weight: '5-10 т',
+      status: 'Стабильный',
+      statusColor: 'bg-green-500',
+      gradient: 'from-blue-500 via-teal-400 to-cyan-300',
+      icon: '🐋',
+      habitat: 'Все океаны',
+      lifespan: '50-60 лет',
+      photo: 'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&q=80',
+      description: 'Самый мелкий из усатых китов, быстрый и любопытный, часто подплывает к судам.'
+    },
+    {
+      name: 'Гренландский кит',
+      latin: 'Balaena mysticetus',
+      size: '14-18 м',
+      weight: '75-100 т',
+      status: 'Под угрозой',
+      statusColor: 'bg-red-500',
+      gradient: 'from-slate-600 via-blue-700 to-cyan-600',
+      icon: '🐋',
+      habitat: 'Арктика',
+      lifespan: '150-200 лет',
+      photo: 'https://images.unsplash.com/photo-1591025207163-942350e47db2?w=800&q=80',
+      description: 'Рекордсмен по продолжительности жизни среди млекопитающих — может жить более 200 лет!'
+    },
+    {
+      name: 'Южный гладкий кит',
+      latin: 'Eubalaena australis',
+      size: '13-16 м',
+      weight: '40-80 т',
+      status: 'Под угрозой',
+      statusColor: 'bg-red-500',
+      gradient: 'from-gray-700 via-slate-600 to-gray-500',
+      icon: '🐋',
+      habitat: 'Южное полушарие',
+      lifespan: '70-100 лет',
+      photo: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=800&q=80',
+      description: 'Медлительный и дружелюбный гигант с характерными наростами на голове.'
+    },
+    {
+      name: 'Северный плавун',
+      latin: 'Hyperoodon ampullatus',
+      size: '7-10 м',
+      weight: '5-8 т',
+      status: 'Уязвимый',
+      statusColor: 'bg-orange-500',
+      gradient: 'from-indigo-700 via-blue-600 to-cyan-500',
+      icon: '🐳',
+      habitat: 'Северная Атлантика',
+      lifespan: '40-50 лет',
+      photo: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80',
+      description: 'Глубоководный ныряльщик с крупной выпуклой головой и социальным поведением.'
     }
   ];
 
@@ -158,10 +234,16 @@ export default function Index() {
                 <p className="text-xs text-muted-foreground">Величие океана</p>
               </div>
             </div>
-            <Button variant="default" size="lg" className="hidden md:flex">
-              <Icon name="Heart" className="mr-2" size={18} />
-              Поддержать
-            </Button>
+            <div className="flex gap-3">
+              <Button variant="outline" size="lg" onClick={() => setShowGallery(true)}>
+                <Icon name="Camera" className="mr-2" size={18} />
+                Фотографии
+              </Button>
+              <Button variant="default" size="lg" className="hidden md:flex">
+                <Icon name="Heart" className="mr-2" size={18} />
+                Поддержать
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
@@ -186,13 +268,13 @@ export default function Index() {
               Погрузитесь в удивительный мир китов — самых крупных, умных и загадочных обитателей морских глубин
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8 py-6 shadow-lg">
+              <Button size="lg" className="text-lg px-8 py-6 shadow-lg" onClick={scrollToWhales}>
                 <Icon name="ArrowDown" className="mr-2" size={20} />
                 Начать исследование
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6">
-                <Icon name="Play" className="mr-2" size={20} />
-                Смотреть видео
+              <Button size="lg" variant="outline" className="text-lg px-8 py-6" onClick={() => setShowGallery(true)}>
+                <Icon name="Images" className="mr-2" size={20} />
+                Смотреть фотографии
               </Button>
             </div>
           </div>
@@ -211,12 +293,12 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="py-20 px-6 bg-gradient-to-br from-primary/5 via-accent/5 to-ocean-light/20">
+      <section ref={whalesRef} className="py-20 px-6 bg-gradient-to-br from-primary/5 via-accent/5 to-ocean-light/20">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h3 className="text-5xl font-bold text-secondary mb-4">Познакомьтесь с китами</h3>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Каждый вид уникален и восхитителен по-своему
+              12 удивительных видов — каждый уникален и восхитителен по-своему
             </p>
           </div>
 
@@ -268,7 +350,7 @@ export default function Index() {
                   {selectedWhale === index && (
                     <div className="mt-4 pt-4 border-t border-border animate-fade-in">
                       <p className="text-muted-foreground mb-4">{whale.description}</p>
-                      <div className="grid grid-cols-2 gap-3 text-sm">
+                      <div className="grid grid-cols-2 gap-3 text-sm mb-4">
                         <div>
                           <span className="text-muted-foreground">Ареал:</span>
                           <span className="ml-2 font-medium">{whale.habitat}</span>
@@ -277,6 +359,31 @@ export default function Index() {
                           <span className="text-muted-foreground">Продолжительность жизни:</span>
                           <span className="ml-2 font-medium">{whale.lifespan}</span>
                         </div>
+                      </div>
+
+                      <div className="mb-4">
+                        <p className="text-sm text-muted-foreground mb-2">Ваша оценка:</p>
+                        <div className="flex gap-2">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <button
+                              key={star}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                rateWhale(index, star);
+                              }}
+                              className="transition-transform hover:scale-125"
+                            >
+                              <Icon 
+                                name={ratings[index] >= star ? "Star" : "Star"}
+                                className={ratings[index] >= star ? "text-yellow-500 fill-yellow-500" : "text-gray-300"}
+                                size={24}
+                              />
+                            </button>
+                          ))}
+                        </div>
+                        {ratings[index] && (
+                          <p className="text-xs text-primary mt-2">Спасибо за вашу оценку! ⭐</p>
+                        )}
                       </div>
                     </div>
                   )}
@@ -369,6 +476,41 @@ export default function Index() {
           </div>
         </div>
       </footer>
+
+      <Dialog open={showGallery} onOpenChange={setShowGallery}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-3xl">Фотографии китов из реальной жизни</DialogTitle>
+            <DialogDescription className="text-lg">
+              Невероятные кадры величественных обитателей океана
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            {whaleSpecies.map((whale, index) => (
+              <Card key={index} className="overflow-hidden hover:shadow-xl transition-all duration-300 group">
+                <div className="relative h-64 overflow-hidden">
+                  <img 
+                    src={whale.photo} 
+                    alt={whale.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                    <h4 className="text-xl font-bold mb-1">{whale.name}</h4>
+                    <p className="text-sm opacity-90 italic">{whale.latin}</p>
+                  </div>
+                  <Badge className={`${whale.statusColor} text-white font-semibold absolute top-3 right-3 border-0`}>
+                    {whale.status}
+                  </Badge>
+                </div>
+                <CardContent className="pt-4">
+                  <p className="text-sm text-muted-foreground line-clamp-2">{whale.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
