@@ -9,6 +9,7 @@ export default function Index() {
   const [selectedWhale, setSelectedWhale] = useState<number | null>(null);
   const [showGallery, setShowGallery] = useState(false);
   const [ratings, setRatings] = useState<{ [key: number]: number }>({});
+  const [showAll, setShowAll] = useState(false);
 
   const scrollToWhales = () => {
     const element = document.getElementById('whales-section');
@@ -187,11 +188,263 @@ export default function Index() {
       lifespan: '40-50 лет',
       photo: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80',
       description: 'Глубоководный ныряльщик с крупной выпуклой головой и социальным поведением.'
+    },
+    {
+      name: 'Сейвал',
+      latin: 'Balaenoptera borealis',
+      size: '12-16 м',
+      weight: '20-30 т',
+      status: 'Под угрозой',
+      statusColor: 'bg-red-500',
+      gradient: 'from-blue-700 via-slate-600 to-gray-500',
+      icon: '🐋',
+      habitat: 'Все океаны',
+      lifespan: '60-70 лет',
+      photo: 'https://images.unsplash.com/photo-1567213502996-a3c8e5cf0dd3?w=800&q=80',
+      description: 'Элегантный и стройный кит, один из самых быстрых усатых китов после финвала.'
+    },
+    {
+      name: 'Северный гладкий кит',
+      latin: 'Eubalaena glacialis',
+      size: '13-18 м',
+      weight: '40-70 т',
+      status: 'Критически под угрозой',
+      statusColor: 'bg-red-700',
+      gradient: 'from-gray-800 via-slate-700 to-gray-600',
+      icon: '🐋',
+      habitat: 'Северная Атлантика',
+      lifespan: '70 лет',
+      photo: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
+      description: 'Один из самых редких китов в мире, осталось менее 400 особей.'
+    },
+    {
+      name: 'Японский гладкий кит',
+      latin: 'Eubalaena japonica',
+      size: '15-18 м',
+      weight: '60-80 т',
+      status: 'Критически под угрозой',
+      statusColor: 'bg-red-700',
+      gradient: 'from-slate-800 via-gray-700 to-blue-600',
+      icon: '🐋',
+      habitat: 'Северная часть Тихого океана',
+      lifespan: '70 лет',
+      photo: 'https://images.unsplash.com/photo-1559828260-0ba30c6aa25c?w=800&q=80',
+      description: 'Крайне редкий вид, находится на грани исчезновения с популяцией около 300 особей.'
+    },
+    {
+      name: 'Карликовый кит',
+      latin: 'Caperea marginata',
+      size: '6-6.5 м',
+      weight: '3-4 т',
+      status: 'Недостаточно данных',
+      statusColor: 'bg-gray-500',
+      gradient: 'from-gray-500 via-slate-400 to-blue-300',
+      icon: '🐋',
+      habitat: 'Южное полушарие',
+      lifespan: '30-40 лет',
+      photo: 'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&q=80',
+      description: 'Самый маленький усатый кит, очень скрытный и малоизученный вид.'
+    },
+    {
+      name: 'Афалина',
+      latin: 'Tursiops truncatus',
+      size: '2-4 м',
+      weight: '150-650 кг',
+      status: 'Стабильный',
+      statusColor: 'bg-green-500',
+      gradient: 'from-blue-500 via-cyan-400 to-teal-300',
+      icon: '🐬',
+      habitat: 'Прибрежные воды',
+      lifespan: '40-50 лет',
+      photo: 'https://images.unsplash.com/photo-1568430462989-44163eb1752f?w=800&q=80',
+      description: 'Самый известный и изученный дельфин, обладающий высоким интеллектом и дружелюбием.'
+    },
+    {
+      name: 'Длинноклювый продельфин',
+      latin: 'Stenella longirostris',
+      size: '1.3-2.4 м',
+      weight: '23-80 кг',
+      status: 'Стабильный',
+      statusColor: 'bg-green-500',
+      gradient: 'from-teal-500 via-blue-400 to-cyan-300',
+      icon: '🐬',
+      habitat: 'Тропические воды',
+      lifespan: '20-25 лет',
+      photo: 'https://images.unsplash.com/photo-1489549132488-d00b7eee80f1?w=800&q=80',
+      description: 'Акробатический дельфин, способный совершать впечатляющие вращения в прыжке до 7 раз!'
+    },
+    {
+      name: 'Морская свинья',
+      latin: 'Phocoena phocoena',
+      size: '1.5-2 м',
+      weight: '50-75 кг',
+      status: 'Уязвимый',
+      statusColor: 'bg-orange-500',
+      gradient: 'from-slate-500 via-gray-400 to-blue-300',
+      icon: '🐬',
+      habitat: 'Прибрежные умеренные воды',
+      lifespan: '20-25 лет',
+      photo: 'https://images.unsplash.com/photo-1567213502996-a3c8e5cf0dd3?w=800&q=80',
+      description: 'Небольшое скромное китообразное, один из самых маленьких представителей отряда.'
+    },
+    {
+      name: 'Обыкновенная гринда',
+      latin: 'Globicephala melas',
+      size: '4-6 м',
+      weight: '1-2 т',
+      status: 'Стабильный',
+      statusColor: 'bg-green-500',
+      gradient: 'from-slate-800 via-gray-700 to-slate-600',
+      icon: '🐬',
+      habitat: 'Умеренные и холодные воды',
+      lifespan: '35-60 лет',
+      photo: 'https://images.unsplash.com/photo-1530885988677-30d2a3aeade4?w=800&q=80',
+      description: 'Социальные животные с сильными семейными связями, часто путешествуют большими группами.'
+    },
+    {
+      name: 'Малая косатка',
+      latin: 'Pseudorca crassidens',
+      size: '4-6 м',
+      weight: '1-2.5 т',
+      status: 'Близок к угрозе',
+      statusColor: 'bg-yellow-500',
+      gradient: 'from-slate-900 via-gray-800 to-slate-700',
+      icon: '🐬',
+      habitat: 'Тропические и субтропические воды',
+      lifespan: '60 лет',
+      photo: 'https://images.unsplash.com/photo-1559827260-0ba30c6aa25c?w=800&q=80',
+      description: 'Активный хищник, не являющийся близким родственником косатки, несмотря на название.'
+    },
+    {
+      name: 'Иравадийский дельфин',
+      latin: 'Orcaella brevirostris',
+      size: '2-2.7 м',
+      weight: '90-200 кг',
+      status: 'Под угрозой',
+      statusColor: 'bg-red-500',
+      gradient: 'from-blue-400 via-cyan-300 to-teal-200',
+      icon: '🐬',
+      habitat: 'Прибрежные воды Индо-Тихоокеанского региона',
+      lifespan: '30 лет',
+      photo: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=800&q=80',
+      description: 'Уникальный дельфин с округлой головой, обитающий в реках и прибрежных водах.'
+    },
+    {
+      name: 'Полосатый дельфин',
+      latin: 'Stenella coeruleoalba',
+      size: '1.8-2.5 м',
+      weight: '90-150 кг',
+      status: 'Стабильный',
+      statusColor: 'bg-green-500',
+      gradient: 'from-indigo-500 via-blue-400 to-cyan-300',
+      icon: '🐬',
+      habitat: 'Умеренные и тропические воды',
+      lifespan: '55-60 лет',
+      photo: 'https://images.unsplash.com/photo-1568430462989-44163eb1752f?w=800&q=80',
+      description: 'Красивый дельфин с характерными синими полосами вдоль тела.'
+    },
+    {
+      name: 'Амазонский речной дельфин',
+      latin: 'Inia geoffrensis',
+      size: '1.8-2.5 м',
+      weight: '85-185 кг',
+      status: 'Под угрозой',
+      statusColor: 'bg-red-500',
+      gradient: 'from-pink-400 via-rose-300 to-pink-200',
+      icon: '🐬',
+      habitat: 'Река Амазонка',
+      lifespan: '30 лет',
+      photo: 'https://images.unsplash.com/photo-1591025207163-942350e47db2?w=800&q=80',
+      description: 'Уникальный розовый дельфин, живущий в пресных водах Амазонки, обладающий гибкой шеей.'
+    },
+    {
+      name: 'Китайский речной дельфин',
+      latin: 'Lipotes vexillifer',
+      size: '2-2.5 м',
+      weight: '135-230 кг',
+      status: 'Возможно вымер',
+      statusColor: 'bg-black',
+      gradient: 'from-gray-600 via-slate-500 to-gray-400',
+      icon: '🐬',
+      habitat: 'Река Янцзы (Китай)',
+      lifespan: '24 года',
+      photo: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
+      description: 'Трагически вымерший вид, последний раз наблюдался в 2002 году — жертва индустриализации.'
+    },
+    {
+      name: 'Клюворыл',
+      latin: 'Ziphius cavirostris',
+      size: '5-7 м',
+      weight: '2-3 т',
+      status: 'Стабильный',
+      statusColor: 'bg-green-500',
+      gradient: 'from-slate-700 via-blue-600 to-cyan-500',
+      icon: '🐳',
+      habitat: 'Глубокие воды всех океанов',
+      lifespan: '40-60 лет',
+      photo: 'https://images.unsplash.com/photo-1567213502996-a3c8e5cf0dd3?w=800&q=80',
+      description: 'Рекордсмен по глубине погружения среди млекопитающих — до 2992 метров!'
+    },
+    {
+      name: 'Карликовый кашалот',
+      latin: 'Kogia breviceps',
+      size: '2.7-3.5 м',
+      weight: '300-500 кг',
+      status: 'Недостаточно данных',
+      statusColor: 'bg-gray-500',
+      gradient: 'from-gray-700 via-slate-600 to-blue-500',
+      icon: '🐳',
+      habitat: 'Тропические и умеренные воды',
+      lifespan: '23 года',
+      photo: 'https://images.unsplash.com/photo-1489549132488-d00b7eee80f1?w=800&q=80',
+      description: 'Миниатюрная версия кашалота, способная выпускать чернильное облако для защиты.'
+    },
+    {
+      name: 'Бутылконос Бэрда',
+      latin: 'Berardius bairdii',
+      size: '10-12 м',
+      weight: '10-15 т',
+      status: 'Недостаточно данных',
+      statusColor: 'bg-gray-500',
+      gradient: 'from-slate-800 via-gray-700 to-blue-600',
+      icon: '🐳',
+      habitat: 'Северная часть Тихого океана',
+      lifespan: '80-90 лет',
+      photo: 'https://images.unsplash.com/photo-1530885988677-30d2a3aeade4?w=800&q=80',
+      description: 'Крупный клюворыл с глубоким нырянием и малоизученным образом жизни.'
+    },
+    {
+      name: 'Сернобрюхий дельфин',
+      latin: 'Lagenorhynchus obliquidens',
+      size: '1.9-2.5 м',
+      weight: '90-200 кг',
+      status: 'Стабильный',
+      statusColor: 'bg-green-500',
+      gradient: 'from-slate-600 via-gray-500 to-teal-400',
+      icon: '🐬',
+      habitat: 'Северная часть Тихого океана',
+      lifespan: '40 лет',
+      photo: 'https://images.unsplash.com/photo-1559828260-0ba30c6aa25c?w=800&q=80',
+      description: 'Энергичный дельфин с характерным серым брюхом и любовью к прыжкам.'
+    },
+    {
+      name: 'Атлантический белобокий дельфин',
+      latin: 'Lagenorhynchus acutus',
+      size: '2-2.7 м',
+      weight: '180-230 кг',
+      status: 'Стабильный',
+      statusColor: 'bg-green-500',
+      gradient: 'from-blue-600 via-cyan-500 to-white',
+      icon: '🐬',
+      habitat: 'Северная Атлантика',
+      lifespan: '25-30 лет',
+      photo: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=800&q=80',
+      description: 'Социальный и игривый дельфин с яркими белыми пятнами на боках.'
     }
   ];
 
   const stats = [
-    { number: '90+', label: 'Видов китообразных', icon: 'Fish' },
+    { number: '30+', label: 'Видов в коллекции', icon: 'Fish' },
     { number: '200', label: 'Лет максимальный возраст', icon: 'Clock' },
     { number: '3000м', label: 'Глубина погружения', icon: 'Waves' },
     { number: '30км', label: 'Дальность песен китов', icon: 'Radio' }
@@ -298,12 +551,12 @@ export default function Index() {
           <div className="text-center mb-16">
             <h3 className="text-5xl font-bold text-secondary mb-4">Познакомьтесь с китами</h3>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              12 удивительных видов — каждый уникален и восхитителен по-своему
+              30 удивительных видов — от гигантских синих китов до проворных дельфинов!
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {whaleSpecies.map((whale, index) => (
+            {(showAll ? whaleSpecies : whaleSpecies.slice(0, 12)).map((whale, index) => (
               <Card
                 key={index}
                 className="group cursor-pointer overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]"
@@ -391,6 +644,15 @@ export default function Index() {
               </Card>
             ))}
           </div>
+
+          {!showAll && (
+            <div className="text-center mt-12">
+              <Button size="lg" variant="outline" className="text-lg px-8 py-6" onClick={() => setShowAll(true)}>
+                <Icon name="ChevronDown" className="mr-2" size={20} />
+                Показать ещё {whaleSpecies.length - 12} видов
+              </Button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -482,7 +744,7 @@ export default function Index() {
           <DialogHeader>
             <DialogTitle className="text-3xl">Фотографии китов из реальной жизни</DialogTitle>
             <DialogDescription className="text-lg">
-              Невероятные кадры величественных обитателей океана
+              Коллекция из {whaleSpecies.length} видов — невероятные кадры величественных обитателей океана
             </DialogDescription>
           </DialogHeader>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
